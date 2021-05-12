@@ -1,31 +1,59 @@
-import React, { useCallback } from "react";
-import { useGlobals } from "@storybook/api";
-import { Icons, IconButton } from "@storybook/components";
+import React, { useEffect } from "react";
+import styled from "@emotion/styled";
+import { useSharedState } from "@storybook/api";
 import { TOOL_ID } from "./constants";
+import { SvgMuiDark } from "./components/SvgMuiDark";
+import { SvgMuiLight } from "./components/SvgMuiLight";
+import { useMuiMode } from "./useMuiMode";
+
+const ToggleButton = styled.button(({ active }) => ({
+  borderRadius: 4,
+  minWidth: 28,
+  minHeight: 28,
+  display: "inline-flex",
+  alignItems: "center",
+  border: "none",
+  backgroundColor: "unset",
+  ...(!active && {
+    "&:hover": {
+      backgroundColor: "#f5f5f5",
+    },
+  }),
+  ...(active && {
+    backgroundColor: "rgba(30,167,253,0.24)",
+  }),
+}));
+
+const Group = styled.div({
+  alignSelf: "center",
+  display: "flex",
+  gap: 4,
+});
 
 export const Tool = () => {
-  const [{ myAddon }, updateGlobals] = useGlobals();
+  const { muiMode, turnDark, turnLight } = useMuiMode();
+  const state = useSharedState();
+  console.log(state);
 
-  const toggleMyTool = useCallback(
-    () =>
-      updateGlobals({
-        myAddon: !myAddon,
-      }),
-    [myAddon]
-  );
-
+  useEffect(() => {
+    turnDark();
+  }, []);
   return (
-    <IconButton
-      key={TOOL_ID}
-      active={myAddon}
-      title="Enable my addon"
-      onClick={toggleMyTool}
-    >
-      {/*
-        Checkout https://next--storybookjs.netlify.app/official-storybook/?path=/story/basics-icon--labels
-        for the full list of icons
-      */}
-      <Icons icon="lightning" />
-    </IconButton>
+    <Group key={TOOL_ID}>
+      <ToggleButton
+        title="Light mode"
+        active={muiMode === "light"}
+        onClick={turnLight}
+      >
+        <SvgMuiLight />
+      </ToggleButton>
+      <ToggleButton
+        title="Dark mode"
+        active={muiMode === "dark"}
+        onClick={turnDark}
+      >
+        <SvgMuiDark />
+      </ToggleButton>
+    </Group>
   );
 };

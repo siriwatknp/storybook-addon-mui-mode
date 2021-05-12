@@ -1,17 +1,16 @@
 {
-  "name": "storybook-addon-kit",
+  "name": "storybook-addon-mui-mode",
   "version": "0.0.0",
-  "description": "everything you need to build a Storybook addon",
+  "description": "storybook addon that provide simple ui to toggle light/dark mode",
   "keywords": [
     "storybook-addons",
-    "style",
-    "test"
+    "material-ui"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/storybookjs/storybook-addon-kit"
+    "url": "https://github.com/siriwatknp/storybook-addon-mui-mode"
   },
-  "author": "winkerVSbecks",
+  "author": "siriwatknp",
   "license": "MIT",
   "main": "dist/preset",
   "files": [
@@ -68,12 +67,10 @@
     "access": "public"
   },
   "storybook": {
-    "displayName": "Addon Kit",
+    "displayName": "Material-UI Mode Addon",
     "supportedFrameworks": [
-      "react",
-      "vue",
-      "angular"
+      "react"
     ],
-    "icon": "https://user-images.githubusercontent.com/321738/63501763-88dbf600-c4cc-11e9-96cd-94adadc2fd72.png"
+    "icon": "https://user-images.githubusercontent.com/18292247/117999618-3a8d1b80-b36f-11eb-800d-a45dbf682976.png"
   }
 }
