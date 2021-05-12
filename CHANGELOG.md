@@ -1,3 +1,15 @@
+# v0.0.2 (Wed May 12 2021)
+
+#### ⚠️ Pushed to `main`
+
+- fix: remove log ([@siriwatknp](https://github.com/siriwatknp))
+
+#### Authors: 1
+
+- Siriwat K ([@siriwatknp](https://github.com/siriwatknp))
+
+---
+
 # v0.0.1 (Wed May 12 2021)
 
 #### ⚠️ Pushed to `main`
