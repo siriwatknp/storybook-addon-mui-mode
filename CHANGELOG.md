@@ -1,0 +1,10 @@
+# v0.0.1 (Wed May 12 2021)
+
+#### ⚠️ Pushed to `main`
+
+- feat: ready for release ([@siriwatknp](https://github.com/siriwatknp))
+- Initial commit ([@siriwatknp](https://github.com/siriwatknp))
+
+#### Authors: 1
+
+- Siriwat K ([@siriwatknp](https://github.com/siriwatknp))
