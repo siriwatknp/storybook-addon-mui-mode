@@ -33,7 +33,6 @@ const Group = styled.div({
 export const Tool = () => {
   const { muiMode, turnDark, turnLight } = useMuiMode();
   const state = useSharedState();
-  console.log(state);
 
   useEffect(() => {
     turnDark();
