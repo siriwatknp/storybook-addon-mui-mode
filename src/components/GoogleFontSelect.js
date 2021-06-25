@@ -1,7 +1,7 @@
 import React from "react";
 import Select, { components } from "react-select";
 
-const appendRegularFontToHead = (font) => {
+const createStyleElement = (font) => {
   const styleElm = document.createElement("style");
   styleElm.innerHTML = `
     @font-face {
@@ -12,7 +12,20 @@ const appendRegularFontToHead = (font) => {
       src: url(${font.files.regular}) format('truetype');
     }
   `;
-  document.getElementsByTagName("head")[0].appendChild(styleElm);
+  return styleElm;
+};
+
+const appendRegularFontToHead = (font) => {
+  // add to root head
+  document
+    .getElementsByTagName("head")[0]
+    .appendChild(createStyleElement(font));
+
+  // add to preview-iframe
+  const iframe = document.getElementById("storybook-preview-iframe");
+  if (iframe) {
+    iframe.contentDocument.head.appendChild(createStyleElement(font));
+  }
 };
 
 function debounce(func, timeout = 100) {
