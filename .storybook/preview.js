@@ -6,3 +6,7 @@ const withMuiTheme = (Story, context) => {
 };
 
 export const decorators = [withMuiTheme];
+
+export const parameters = {
+  googleFontApiKey: "_API_KEY_",
+};

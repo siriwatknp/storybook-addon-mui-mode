@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-mui-mode",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "storybook addon that provide simple ui to toggle light/dark mode",
   "keywords": [
     "storybook-addons",
@@ -72,5 +72,8 @@
       "react"
     ],
     "icon": "https://user-images.githubusercontent.com/18292247/117999618-3a8d1b80-b36f-11eb-800d-a45dbf682976.png"
+  },
+  "dependencies": {
+    "react-select": "4.3.1"
   }
 }

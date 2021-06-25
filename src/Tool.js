@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
+import { useGlobals, useParameter } from "@storybook/api";
 import styled from "@emotion/styled";
-import { useSharedState } from "@storybook/api";
+
 import { TOOL_ID } from "./constants";
-import { SvgMuiDark } from "./components/SvgMuiDark";
-import { SvgMuiLight } from "./components/SvgMuiLight";
-import { useMuiMode } from "./useMuiMode";
+import { SvgMuiDark, SvgMuiLight, GoogleFontSelect } from "./components";
 
 const ToggleButton = styled.button(({ active }) => ({
   borderRadius: 4,
@@ -30,9 +29,19 @@ const Group = styled.div({
   gap: 4,
 });
 
-export const Tool = () => {
-  const { muiMode, turnDark, turnLight } = useMuiMode();
-  const state = useSharedState();
+export const ModeTool = () => {
+  const [{ muiMode = "light" }, updateGlobals] = useGlobals();
+
+  const toggleMode = useCallback(
+    (value) =>
+      updateGlobals({
+        muiMode: value,
+      }),
+    [muiMode]
+  );
+
+  const turnDark = () => toggleMode("dark");
+  const turnLight = () => toggleMode("light");
 
   useEffect(() => {
     turnDark();
@@ -54,5 +63,35 @@ export const Tool = () => {
         <SvgMuiDark />
       </ToggleButton>
     </Group>
+  );
+};
+
+export const FontTool = () => {
+  const [{ googleFont }, updateGlobals] = useGlobals();
+  const parameters = useParameter() || {};
+
+  const selectFont = ({ value }) => {
+    if (value) {
+      updateGlobals({
+        googleFont: value,
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (parameters.googleFont) {
+      selectFont({ value: parameters.googleFont });
+    }
+  }, [parameters.googleFont]);
+
+  return (
+    <GoogleFontSelect
+      {...(googleFont && {
+        value: { label: googleFont, value: googleFont, family: googleFont },
+      })}
+      getOptionValue={({ family }) => family}
+      onChange={selectFont}
+      apiKey={parameters.googleFontApiKey}
+    />
   );
 };
