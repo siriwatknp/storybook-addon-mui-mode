@@ -1,3 +1,15 @@
+# v0.0.8 (Fri Jun 25 2021)
+
+#### ⚠️ Pushed to `main`
+
+- fix: check head exists ([@siriwatknp](https://github.com/siriwatknp))
+
+#### Authors: 1
+
+- Siriwat K ([@siriwatknp](https://github.com/siriwatknp))
+
+---
+
 # v0.0.7 (Fri Jun 25 2021)
 
 #### ⚠️ Pushed to `main`
