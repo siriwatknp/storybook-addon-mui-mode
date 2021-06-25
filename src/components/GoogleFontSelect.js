@@ -128,10 +128,10 @@ export const GoogleFontSelect = ({ apiKey, ...props }) => {
   const htmlLink = React.useRef(document.createElement("link"));
 
   React.useEffect(() => {
-    // somehow make it sync does not work in real application
-    const timeout = setTimeout(() => {
-      const iframe = document.getElementById("storybook-preview-iframe");
-      if (iframe) {
+    // storybook is loading iframe
+    // contentDocument.head can be null
+    function attachHtmlLink(head) {
+      if (head) {
         const link1 = document.createElement("link");
         link1.rel = "preconnect";
         link1.href = "https://fonts.googleapis.com";
@@ -141,13 +141,25 @@ export const GoogleFontSelect = ({ apiKey, ...props }) => {
         link2.href = "fonts.gstatic.com";
         link2.setAttribute("crossorigin", true);
 
-        iframe.contentDocument.head.appendChild(link1);
-        iframe.contentDocument.head.appendChild(link2);
+        head.appendChild(link1);
+        head.appendChild(link2);
 
         htmlLink.current.rel = "stylesheet";
-        iframe.contentDocument.head.appendChild(htmlLink.current);
+        head.appendChild(htmlLink.current);
       }
-    }, 0);
+    }
+    const callUntil = () => {
+      const timeout = setTimeout(() => {
+        const iframe = document.getElementById("storybook-preview-iframe");
+        if (!iframe.contentDocument.head) {
+          callUntil();
+        } else {
+          attachHtmlLink(iframe.contentDocument.head);
+        }
+      }, 400);
+      return timeout;
+    };
+    const timeout = callUntil();
     return () => {
       clearTimeout(timeout);
     };
