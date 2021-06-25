@@ -91,7 +91,7 @@ export const FontTool = () => {
       })}
       getOptionValue={({ family }) => family}
       onChange={selectFont}
-      apiKey={parameters.googleFontApiKey}
+      apiKey={process.env.GOOGLE_FONT_API_KEY}
     />
   );
 };

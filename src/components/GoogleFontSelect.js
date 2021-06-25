@@ -124,6 +124,29 @@ const SingleValue = ({ ...props }) => {
 
 export const GoogleFontSelect = ({ apiKey, ...props }) => {
   const [data, setData] = React.useState([]);
+  const currentFont = props.value ? props.value.family : "";
+  const htmlLink = React.useRef(document.createElement("link"));
+
+  React.useEffect(() => {
+    const iframe = document.getElementById("storybook-preview-iframe");
+    if (iframe) {
+      const link1 = document.createElement("link");
+      link1.rel = "preconnect";
+      link1.href = "https://fonts.googleapis.com";
+
+      const link2 = document.createElement("link");
+      link2.rel = "preconnect";
+      link2.href = "fonts.gstatic.com";
+      link2.setAttribute("crossorigin", true);
+
+      iframe.contentDocument.head.appendChild(link1);
+      iframe.contentDocument.head.appendChild(link2);
+
+      htmlLink.current.rel = "stylesheet";
+      iframe.contentDocument.head.appendChild(htmlLink.current);
+    }
+  }, []);
+
   React.useEffect(() => {
     if (apiKey) {
       fetch(
@@ -137,7 +160,7 @@ export const GoogleFontSelect = ({ apiKey, ...props }) => {
         });
     }
   }, [apiKey]);
-  const currentFont = props.value ? props.value.family : "";
+
   React.useEffect(() => {
     if (currentFont) {
       const fontData = data.find(({ family }) => family === currentFont);
@@ -146,6 +169,21 @@ export const GoogleFontSelect = ({ apiKey, ...props }) => {
       }
     }
   }, [currentFont, data.length]);
+
+  React.useLayoutEffect(() => {
+    if (currentFont) {
+      let apiUrl = [];
+      apiUrl.push("https://fonts.googleapis.com/css2?family=");
+      apiUrl.push(currentFont.replace(/ /g, "+"));
+      apiUrl.push(":wght@");
+      apiUrl.push([100, 200, 300, 400, 500, 600, 700, 800, 900].join(";"));
+      apiUrl.push("&display=swap");
+
+      apiUrl = apiUrl.join("");
+
+      htmlLink.current.href = apiUrl;
+    }
+  }, [currentFont]);
 
   const options = data.map(({ family, ...item }) => ({
     family,
