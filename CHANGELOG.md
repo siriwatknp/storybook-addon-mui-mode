@@ -1,3 +1,15 @@
+# v0.0.9 (Sat Jun 26 2021)
+
+#### ⚠️ Pushed to `main`
+
+- fix: remove default font value ([@siriwatknp](https://github.com/siriwatknp))
+
+#### Authors: 1
+
+- Siriwat K ([@siriwatknp](https://github.com/siriwatknp))
+
+---
+
 # v0.0.8 (Fri Jun 25 2021)
 
 #### ⚠️ Pushed to `main`
