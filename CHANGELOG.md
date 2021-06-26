@@ -1,3 +1,15 @@
+# v0.0.11 (Sat Jun 26 2021)
+
+#### ⚠️ Pushed to `main`
+
+- fix: use weight 300 as fallback ([@siriwatknp](https://github.com/siriwatknp))
+
+#### Authors: 1
+
+- Siriwat K ([@siriwatknp](https://github.com/siriwatknp))
+
+---
+
 # v0.0.10 (Sat Jun 26 2021)
 
 #### ⚠️ Pushed to `main`
