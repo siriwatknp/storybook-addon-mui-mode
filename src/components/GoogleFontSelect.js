@@ -2,17 +2,18 @@ import React from "react";
 import Select, { components } from "react-select";
 
 const createStyleElement = (font) => {
+  const weight = font.files.regular || font.files[300];
   const styleElm = document.createElement("style");
+  if (!weight) {
+    return styleElm;
+  }
   styleElm.innerHTML = `
     @font-face {
       font-family: '${font.family}';
       font-style: normal;
       font-weight: 400;
       font-display: block;
-      src: url(${font.files.regular.replace(
-        "http:",
-        "https:"
-      )}) format('truetype');
+      src: url(${weight.replace("http:", "https:")}) format('truetype');
     }
   `;
   return styleElm;
