@@ -9,7 +9,10 @@ const createStyleElement = (font) => {
       font-style: normal;
       font-weight: 400;
       font-display: block;
-      src: url(${font.files.regular}) format('truetype');
+      src: url(${font.files.regular.replace(
+        "http:",
+        "https:"
+      )}) format('truetype');
     }
   `;
   return styleElm;
