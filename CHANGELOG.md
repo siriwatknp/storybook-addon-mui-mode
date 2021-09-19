@@ -1,3 +1,15 @@
+# v0.0.14 (Sun Sep 19 2021)
+
+#### ⚠️ Pushed to `main`
+
+- fix: prevent setData after unmount ([@siriwatknp](https://github.com/siriwatknp))
+
+#### Authors: 1
+
+- Siriwat K ([@siriwatknp](https://github.com/siriwatknp))
+
+---
+
 # v0.0.13 (Sun Sep 19 2021)
 
 #### ⚠️ Pushed to `main`
