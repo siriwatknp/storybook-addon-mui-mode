@@ -126,7 +126,7 @@ const SingleValue = ({ ...props }) => {
   );
 };
 
-export const GoogleFontSelect = ({ apiKey, ...props }) => {
+export const GoogleFontSelect = ({ apiKey, minWidth = 156, ...props }) => {
   const [data, setData] = React.useState([]);
   const currentFont = props.value ? props.value.family : "";
   const htmlLink = React.useRef(document.createElement("link"));
@@ -233,7 +233,7 @@ export const GoogleFontSelect = ({ apiKey, ...props }) => {
         container: (styles) => ({
           ...styles,
           alignSelf: "center",
-          minWidth: 160,
+          minWidth,
           fontSize: 14,
         }),
         control: (styles) => ({
@@ -254,7 +254,7 @@ export const GoogleFontSelect = ({ apiKey, ...props }) => {
         }),
         option: (styles) => ({
           ...styles,
-          fontSize: "0.875rem",
+          fontSize: "0.75rem",
           paddingTop: 0,
           paddingBottom: 0,
           height: OPTION_HEIGHT,

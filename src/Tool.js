@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import { TOOL_ID } from "./constants";
 import { SvgMuiDark, SvgMuiLight, GoogleFontSelect } from "./components";
 
-const ToggleButton = styled.button(({ active }) => ({
+const ToggleButton = styled.button(({ active, isDark }) => ({
   borderRadius: 4,
   minWidth: 28,
   minHeight: 28,
@@ -19,8 +19,12 @@ const ToggleButton = styled.button(({ active }) => ({
     },
   }),
   ...(active && {
-    backgroundColor: "rgba(30,167,253,0.24)",
+    backgroundColor: "rgb(2 127 254 / 24%)",
   }),
+  ...(isDark &&
+    active && {
+      backgroundColor: "rgb(11 46 82 / 18%)",
+    }),
 }));
 
 const Group = styled.div({
@@ -42,10 +46,6 @@ export const ModeTool = () => {
 
   const turnDark = () => toggleMode("dark");
   const turnLight = () => toggleMode("light");
-
-  useEffect(() => {
-    turnDark();
-  }, []);
   return (
     <Group key={TOOL_ID}>
       <ToggleButton
@@ -53,29 +53,33 @@ export const ModeTool = () => {
         active={muiMode === "light"}
         onClick={turnLight}
       >
-        <SvgMuiLight />
+        <SvgMuiLight height="20" />
       </ToggleButton>
       <ToggleButton
         title="Dark mode"
+        isDark
         active={muiMode === "dark"}
         onClick={turnDark}
       >
-        <SvgMuiDark />
+        <SvgMuiDark height="20" />
       </ToggleButton>
     </Group>
   );
 };
 
 export const FontTool = () => {
-  const [{ googleFont }, updateGlobals] = useGlobals();
+  const [{ googleFont, googleFontSecondary }, updateGlobals] = useGlobals();
   const parameters = useParameter() || {};
 
-  const selectFont = ({ value }) => {
-    if (value) {
-      updateGlobals({
-        googleFont: value,
-      });
-    }
+  const selectFont = (result) => {
+    updateGlobals({
+      googleFont: result ? result.value : undefined,
+    });
+  };
+  const selectSecondaryFont = (result) => {
+    updateGlobals({
+      googleFontSecondary: result ? result.value : undefined,
+    });
   };
 
   useEffect(() => {
@@ -84,14 +88,36 @@ export const FontTool = () => {
     }
   }, [parameters.googleFont]);
 
+  useEffect(() => {
+    selectSecondaryFont({ value: parameters.googleFontSecondary });
+  }, [parameters.googleFontSecondary]);
+
   return (
-    <GoogleFontSelect
-      {...(googleFont && {
-        value: { label: googleFont, value: googleFont, family: googleFont },
-      })}
-      getOptionValue={({ family }) => family}
-      onChange={selectFont}
-      apiKey={process.env.GOOGLE_FONT_API_KEY}
-    />
+    <Group>
+      <GoogleFontSelect
+        isClearable
+        {...(googleFont && {
+          value: { label: googleFont, value: googleFont, family: googleFont },
+        })}
+        getOptionValue={({ family }) => family}
+        onChange={selectFont}
+        apiKey={process.env.GOOGLE_FONT_API_KEY}
+      />
+      {googleFontSecondary && (
+        <GoogleFontSelect
+          {...(googleFontSecondary && {
+            value: {
+              label: googleFontSecondary,
+              value: googleFontSecondary,
+              family: googleFontSecondary,
+            },
+          })}
+          minWidth={140}
+          getOptionValue={({ family }) => family}
+          onChange={selectSecondaryFont}
+          apiKey={process.env.GOOGLE_FONT_API_KEY}
+        />
+      )}
+    </Group>
   );
 };

@@ -11,3 +11,6 @@ export default {
 };
 
 GoogleFontSelect.args = { apiKey: process.env.GOOGLE_FONT_API_KEY };
+GoogleFontSelect.parameters = {
+  googleFontSecondary: "Nunito",
+};
