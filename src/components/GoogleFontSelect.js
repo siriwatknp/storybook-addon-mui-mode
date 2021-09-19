@@ -170,17 +170,21 @@ export const GoogleFontSelect = ({ apiKey, minWidth = 156, ...props }) => {
   }, []);
 
   React.useEffect(() => {
+    let mounted = true;
     if (apiKey) {
       fetch(
         `https://www.googleapis.com/webfonts/v1/webfonts?key=${apiKey}&sort=popularity`
       )
         .then((response) => response.json())
         .then((response) => {
-          if (response) {
+          if (response && mounted) {
             setData(response.items || []);
           }
         });
     }
+    return () => {
+      mounted = false;
+    };
   }, [apiKey]);
 
   React.useEffect(() => {
