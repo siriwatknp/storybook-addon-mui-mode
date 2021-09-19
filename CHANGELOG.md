@@ -1,3 +1,15 @@
+# v0.0.13 (Sun Sep 19 2021)
+
+#### ⚠️ Pushed to `main`
+
+- feat: add googleFontSecondary and svg styling ([@siriwatknp](https://github.com/siriwatknp))
+
+#### Authors: 1
+
+- Siriwat K ([@siriwatknp](https://github.com/siriwatknp))
+
+---
+
 # v0.0.12 (Sun Sep 19 2021)
 
 #### ⚠️ Pushed to `main`
